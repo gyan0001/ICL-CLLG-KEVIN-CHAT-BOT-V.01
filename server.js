@@ -1,4 +1,4 @@
- // server.js - Enhanced ICL BBIS AI Assistant Kevin
+// server.js - Enhanced ICL BBIS AI Assistant Kevin with Smart Conversation
 import express from 'express';
 import axios from 'axios';
 import dotenv from 'dotenv';
@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(express.json());
-app.use(express.static('Public'));
+app.use(express.static('public'));
 
 // Enable CORS
 app.use((req, res, next) => {
@@ -381,7 +381,7 @@ const courseData = {
     }
 };
 
-// Chat sessions
+// Enhanced chat sessions with full conversation history
 const sessions = {};
 
 // Generate session ID
@@ -391,57 +391,87 @@ function generateSessionId() {
 
 // Kevin's enhanced system prompt
 function getKevinPrompt() {
-    return `You are Kevin, the friendly AI assistant for International College of Linguistics (ICL) New Zealand, specializing in the Bachelor of Business Information Systems (BBIS) program.
+    return `You are Kevin, an intelligent and personable AI assistant for International College of Linguistics (ICL) New Zealand, specializing in the Bachelor of Business Information Systems (BBIS) program.
 
-PROGRAM OVERVIEW:
-- 24-month accelerated bachelor's degree
-- 360 credits total (23 papers)
-- NZQA Level 7 qualification
-- Six 16-week trimesters
-- Auckland CBD campus
-- Entry: NZ University Entrance + IELTS 6.0
+PERSONALITY & TONE:
+- Friendly, enthusiastic, and supportive - like a knowledgeable peer mentor
+- Use natural conversational language with appropriate emojis
+- Be encouraging about career prospects and learning opportunities
+- Show genuine interest in helping students make informed decisions
+- Adapt your communication style based on the question's complexity
+
+PROGRAM DETAILS YOU KNOW:
+📚 Program: Bachelor of Business Information Systems (BBIS)
+⏱️ Duration: 24 months accelerated (6 trimesters of 16 weeks each)
+🎓 Level: NZQA Level 7 qualification
+📊 Credits: 360 total credits across 23 papers
+📍 Location: Auckland CBD campus
+🌐 Entry: NZ University Entrance + IELTS 6.0 (no band below 5.5)
+💻 Requirement: BYOD (Bring Your Own Device)
 
 PROGRAM STRUCTURE:
-- Level 5: 9 papers (foundation)
-- Level 6: 9 papers (intermediate)
-- Level 7: 5 papers (advanced)
-- Categories: Information Systems (105cr), Business (120cr), ICT (90cr), Research (45cr)
+Level 5 (Foundation): 9 papers - Building core IT and business fundamentals
+Level 6 (Intermediate): 9 papers - Developing specialized technical capabilities
+Level 7 (Advanced): 5 papers - Advanced analytics, strategy, and capstone project
 
-YOUR ROLE:
-- Be friendly, helpful, and encouraging
-- Provide detailed information about specific papers when asked
-- Explain career pathways and which papers lead to specific roles
-- Help students understand course progression
-- Answer questions about entry requirements, structure, and outcomes
-- Use emojis appropriately: 🎓 📚 💻 💼 📊 🚀
+Credit Distribution:
+- Information Systems: 105 credits
+- Business: 120 credits
+- ICT: 90 credits
+- Research & Application: 45 credits
 
-WHEN DISCUSSING PAPERS:
-- Always mention the paper code, name, level, and credits
-- Explain what students will learn (topics)
-- Describe the skills they'll gain
-- Connect to relevant careers
-- Mention assessment types
+YOUR CAPABILITIES:
+1. Explain any of the 23 papers in detail
+2. Provide personalized career guidance and salary expectations
+3. Recommend paper pathways based on career goals
+4. Compare different papers or career options
+5. Answer questions about entry requirements, structure, and progression
+6. Discuss study strategies and paper combinations
+7. Provide context about the NZ tech job market
 
-Be conversational, supportive, and specific. If you don't know something, be honest and suggest they contact ICL directly.`;
+CONVERSATION STYLE:
+- Remember context from earlier in the conversation
+- Ask clarifying questions when helpful
+- Provide specific examples and real-world applications
+- Break down complex information into digestible parts
+- Be proactive in offering additional relevant information
+
+RESPONSE GUIDELINES:
+- Keep responses concise but informative (2-4 paragraphs)
+- Offer to provide more detail if needed
+- Use bullet points for lists but maintain conversational flow
+- Include relevant emojis naturally: 🎓 📚 💻 💼 📊 🚀 💡 🎯 ✨
+- End with an engaging follow-up question when appropriate
+
+Remember: You're helping shape someone's career path. Be inspiring!`;
 }
 
 // Start chat
 app.post('/api/start-chat', (req, res) => {
     const sessionId = generateSessionId();
-    sessions[sessionId] = { messages: [] };
+    sessions[sessionId] = { 
+        messages: [],
+        userContext: {
+            interests: [],
+            questionsAsked: [],
+            papersDiscussed: []
+        }
+    };
     
     res.json({
         sessionId,
-        greeting: `Kia ora! I'm **Kevin** 🎓, your AI guide for ICL's Bachelor of Business Information Systems!
+        greeting: `Kia ora! I'm **Kevin** 🎓, your personal AI guide for ICL's Bachelor of Business Information Systems!
 
-I can help you with:
-📚 Information about any of the 23 papers
-💼 Career paths and salary expectations
-🎯 Course structure and progression
-📝 Entry requirements
-💡 Which papers to take for your dream job
+I'm here to help you explore this exciting 24-month program that combines IT skills with business acumen. Whether you're curious about specific papers, career paths, or just want to chat about your future in tech - I've got you covered!
 
-What would you like to know?`
+**Popular questions I can help with:**
+💻 "What will I learn in paper 7101?"
+💼 "What careers can I pursue with this degree?"
+🎯 "Which papers should I focus on for data analytics?"
+📊 "Tell me about the program structure"
+✨ "What makes ICL's BBIS program special?"
+
+What would you like to explore first? 🚀`
     });
 });
 
@@ -452,203 +482,172 @@ app.post('/api/chat', async (req, res) => {
         
         if (!sessionId || !sessions[sessionId]) {
             return res.json({ 
-                reply: "Let's start fresh! I'm Kevin, your BBIS course assistant. How can I help? 🎓"
+                reply: "Hey there! Let's start fresh! I'm Kevin, your BBIS course assistant. What would you like to know about ICL's program? 🎓"
             });
         }
         
         if (!message || message.trim() === '') {
-            return res.json({ reply: "Please ask me a question! 📝" });
+            return res.json({ reply: "I'm all ears! What would you like to know? 💭" });
         }
 
-        const query = message.toLowerCase();
-        
-        // Enhanced paper queries
-        const paperMatch = message.match(/(\d{4})/);
-        if (paperMatch) {
-            const paperCode = paperMatch[1];
-            const paper = 
-                courseData.level5[paperCode] || 
-                courseData.level6[paperCode] || 
-                courseData.level7[paperCode];
-            
-            if (paper) {
-                const reply = `📘 **${paper.code}: ${paper.name}**
-**Level ${paper.level} | ${paper.credits} credits**
+        const session = sessions[sessionId];
 
-${paper.description}
-
-**📚 Topics You'll Learn:**
-${paper.topics.map(t => `• ${t}`).join('\n')}
-
-**💪 Skills You'll Gain:**
-${paper.skills.map(s => `• ${s}`).join('\n')}
-
-**💼 Career Relevance:**
-${paper.careerRelevance}
-
-**📝 Assessments:**
-${paper.assessments.map(a => `• ${a}`).join('\n')}
-
-Want to know more about careers related to this paper or other courses? 🚀`;
-                return res.json({ reply });
-            }
-        }
-
-        // Career queries
-        if (query.includes('career') || query.includes('job') || query.includes('salary')) {
-            const reply = `💼 **BBIS Career Opportunities:**
-
-${courseData.careers.slice(0, 5).map(c => 
-    `**${c.role}**
-    💰 ${c.salary}
-    ${c.description}
-    Key Papers: ${c.requiredPapers.join(', ')}
-    `).join('\n')}
-
-All positions offer excellent growth potential in NZ's thriving tech sector! 🚀
-
-Want to know which papers to focus on for a specific role? Just ask! 🎯`;
-            return res.json({ reply });
-        }
-
-        // Program structure
-        if (query.includes('structure') || query.includes('how many') || query.includes('papers')) {
-            const reply = `📊 **BBIS Program Structure:**
-
-**Total:** 23 papers over 24 months (360 credits)
-
-**Level 5 (Foundation):** 9 papers
-Building your fundamental IT and business skills
-
-**Level 6 (Intermediate):** 9 papers  
-Developing specialized technical and business capabilities
-
-**Level 7 (Advanced):** 5 papers
-Advanced analytics, strategy, and capstone project
-
-**By Category:**
-• Information Systems: 105 credits
-• Business: 120 credits  
-• ICT: 90 credits
-• Research & Application: 45 credits
-
-Want to see papers at a specific level? Just ask! 🎓`;
-            return res.json({ reply });
-        }
-
-        // Entry requirements
-        if (query.includes('entry') || query.includes('requirement') || query.includes('ielts') || query.includes('entry')) {
-            const reply = `📋 **Entry Requirements for BBIS:**
-
-**Academic:**
-• NZ University Entrance (UE), OR
-• Equivalent secondary qualification
-
-**For International Students:**
-• IELTS: 6.0 overall (no band below 5.5)
-• Test must be within last 2 years
-• Other NZQA-recognized tests accepted
-
-**Additional:**
-• Must bring own device (laptop/tablet)
-• Basic computer literacy
-
-**Campus:** Auckland CBD
-**Duration:** 24 months (accelerated)
-
-Ready to apply? I can tell you more about specific papers! 🚀`;
-            return res.json({ reply });
-        }
-
-        // Duration/time queries
-        if (query.includes('duration') || query.includes('how long') || query.includes('time')) {
-            const reply = `⏰ **Program Duration:**
-
-**24 months total** - that's an accelerated bachelor's degree!
-
-**Structure:**
-• Six 16-week trimesters
-• Excludes holidays
-• Full-time study
-• 360 credits total
-
-**Start dates:** Contact ICL for 2025 intakes
-
-This compressed format lets you graduate a year earlier than traditional 3-year degrees! 🎓
-
-Want to know about specific papers or progression? 📚`;
-            return res.json({ reply });
-        }
-
-        // Greetings
-        if (query.includes('hello') || query.includes('hi') || query.includes('kia ora')) {
-            return res.json({ 
-                reply: `Kia ora! 👋 I'm Kevin, your BBIS expert!
-
-I can help you explore:
-• Any of the 23 papers (e.g., "Tell me about 7101")
-• Career paths and salaries
-• Course structure and requirements
-• Entry requirements
-• Best papers for your goals
-
-What would you like to know? 🎓`
-            });
-        }
-
-        // Use OpenAI if available
+        // Use OpenAI for intelligent responses
         if (process.env.OPENAI_API_KEY) {
             try {
+                const conversationHistory = [
+                    { 
+                        role: 'system', 
+                        content: getKevinPrompt() + `\n\nCOURSE DATA:\n${JSON.stringify(courseData, null, 2)}`
+                    }
+                ];
+
+                const recentMessages = session.messages.slice(-10);
+                conversationHistory.push(...recentMessages);
+                conversationHistory.push({ role: 'user', content: message });
+
                 const response = await axios.post(
                     'https://api.openai.com/v1/chat/completions',
                     {
                         model: 'gpt-4o-mini',
-                        messages: [
-                            { role: 'system', content: getKevinPrompt() },
-                            { role: 'user', content: message }
-                        ],
-                        max_tokens: 500,
-                        temperature: 0.7
+                        messages: conversationHistory,
+                        max_tokens: 800,
+                        temperature: 0.8,
+                        presence_penalty: 0.6,
+                        frequency_penalty: 0.3
                     },
                     {
                         headers: {
                             'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
                             'Content-Type': 'application/json'
                         },
-                        timeout: 15000
+                        timeout: 20000
                     }
                 );
                 
                 const reply = response.data.choices[0].message.content;
+
+                session.messages.push(
+                    { role: 'user', content: message },
+                    { role: 'assistant', content: reply }
+                );
+
                 return res.json({ reply });
                 
             } catch (openaiError) {
-                console.log('OpenAI error, using fallback');
+                console.error('OpenAI Error:', openaiError.message);
+                return res.json({ reply: getFallbackResponse(message) });
             }
+        } else {
+            return res.json({ reply: getFallbackResponse(message) });
         }
-        
-        // Fallback response
-        return res.json({ 
-            reply: `I'm here to help with the BBIS program! Try asking me:
-
-• "Tell me about paper 6104" (any paper code)
-• "What careers can I pursue?"
-• "What's the program structure?"  
-• "Entry requirements?"
-• "How long is the course?"
-
-What would you like to know? 🎓`
-        });
         
     } catch (error) {
         console.error('Server error:', error);
-        return res.json({ 
-            reply: "I'm having a technical moment. Please try again! 🔄"
-        });
+        return res.json({ reply: "Oops! Technical hiccup. Try again! 🔄" });
     }
 });
 
-// Get all course data
+// Fallback function
+function getFallbackResponse(message) {
+    const query = message.toLowerCase();
+    
+    const paperMatch = message.match(/(\d{4})/);
+    if (paperMatch) {
+        const paperCode = paperMatch[1];
+        const paper = courseData.level5[paperCode] || courseData.level6[paperCode] || courseData.level7[paperCode];
+        
+        if (paper) {
+            return `📘 **${paper.code}: ${paper.name}**
+*Level ${paper.level} | ${paper.credits} credits*
+
+${paper.description}
+
+**What You'll Learn:**
+${paper.topics.map(t => `• ${t}`).join('\n')}
+
+**Skills You'll Gain:**
+${paper.skills.map(s => `• ${s}`).join('\n')}
+
+**💼 Career Connection:**
+${paper.careerRelevance}
+
+**📝 Assessments:**
+${paper.assessments.map(a => `• ${a}`).join('\n')}
+
+Want to know more? Just ask! 🚀`;
+        }
+    }
+
+    if (query.includes('career') || query.includes('job') || query.includes('salary')) {
+        return `💼 **BBIS Career Opportunities:**
+
+${courseData.careers.slice(0, 5).map(c => 
+    `**${c.role}**
+💰 ${c.salary}
+${c.description}
+📚 Key Papers: ${c.requiredPapers.join(', ')}
+`).join('\n')}
+
+All positions are in high demand! Want details on a specific role? 🎯`;
+    }
+
+    if (query.includes('structure') || query.includes('overview')) {
+        return `📊 **BBIS Program Structure:**
+
+**Total:** 23 papers | 360 credits | 24 months
+
+**Level 5 (Foundation)** - 9 papers
+Core IT and business fundamentals
+
+**Level 6 (Intermediate)** - 9 papers
+Specialized technical skills
+
+**Level 7 (Advanced)** - 5 papers
+Advanced analytics + capstone project
+
+**Credit Breakdown:**
+• Information Systems: 105 credits
+• Business: 120 credits
+• ICT: 90 credits
+• Research: 45 credits
+
+Want details on any level? 🚀`;
+    }
+
+    if (query.includes('entry') || query.includes('requirement') || query.includes('ielts')) {
+        return `📋 **Entry Requirements:**
+
+**Academic:**
+• NZ University Entrance, OR
+• Equivalent qualification
+
+**English (International):**
+• IELTS: 6.0 overall (no band below 5.5)
+• Other tests accepted
+
+**Additional:**
+💻 Own laptop/tablet (BYOD)
+📝 Basic computer skills
+
+**Location:** Auckland CBD
+**Duration:** 24 months
+
+Ready to apply? Ask me about papers or careers! 🎓`;
+    }
+
+    return `Hey! I'm Kevin, your BBIS expert! 🎓
+
+Try asking:
+• "Tell me about paper 7101"
+• "What careers are available?"
+• "Entry requirements?"
+• "Program structure?"
+
+What interests you? 💭`;
+}
+
+// Get course data
 app.get('/api/course-data', (req, res) => {
     res.json(courseData);
 });
@@ -656,10 +655,7 @@ app.get('/api/course-data', (req, res) => {
 // Get specific paper
 app.get('/api/paper/:code', (req, res) => {
     const code = req.params.code;
-    const paper = 
-        courseData.level5[code] || 
-        courseData.level6[code] || 
-        courseData.level7[code];
+    const paper = courseData.level5[code] || courseData.level6[code] || courseData.level7[code];
     
     if (paper) {
         res.json({ success: true, paper });
@@ -668,37 +664,46 @@ app.get('/api/paper/:code', (req, res) => {
     }
 });
 
+// Get careers
+app.get('/api/careers', (req, res) => {
+    res.json({ success: true, careers: courseData.careers });
+});
+
 // Health check
 app.get('/api/health', (req, res) => {
     res.json({ 
         status: 'online', 
-        assistant: 'Kevin AI',
+        assistant: 'Kevin AI Enhanced',
+        version: '3.0',
         papers: 23,
+        aiEnabled: !!process.env.OPENAI_API_KEY,
         time: new Date().toISOString()
     });
 });
 
 // Serve HTML
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'Public', 'index.html'));
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 // Start server
 app.listen(PORT, () => {
     console.log(`
-╔═══════════════════════════════════════════════╗
-║      ICL BBIS AI ASSISTANT - KEVIN           ║
-║      ===============================         ║
-║  🌐 http://localhost:${PORT}                   ║
-║  🤖 Assistant: Kevin (Enhanced & Ready!)     ║
-║  📚 Course: BBIS (23 papers, 360 credits)    ║
-║  🎓 Level: 5, 6, 7                           ║
-╚═══════════════════════════════════════════════╝
+╔═══════════════════════════════════════════════════╗
+║   🎓 ICL BBIS AI ASSISTANT - KEVIN ENHANCED      ║
+║   ═══════════════════════════════════════════     ║
+║   🌐 Server: http://localhost:${PORT}                  ║
+║   🤖 Assistant: Kevin (Smart AI!)                ║
+║   📚 Course: BBIS (23 papers, 360 credits)       ║
+║   ⚡ OpenAI: ${process.env.OPENAI_API_KEY ? '✅ Connected' : '❌ Not configured'}              ║
+╚═══════════════════════════════════════════════════╝
     `);
     
     if (!process.env.OPENAI_API_KEY) {
-        console.log('\n⚠️  Running in LOCAL MODE');
-        console.log('💡 Add OPENAI_API_KEY to .env for AI responses\n');
+        console.log('\n⚠️  FALLBACK MODE');
+        console.log('💡 Add OPENAI_API_KEY to .env for AI\n');
+    } else {
+        console.log('\n✅ FULL AI MODE');
+        console.log('🧠 GPT-4o-mini with conversation memory\n');
     }
-
 });
