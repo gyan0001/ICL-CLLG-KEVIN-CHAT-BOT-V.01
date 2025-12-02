@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(express.json());
-app.use(express.static('public'));
+app.use(express.static('Public'));
 
 // Enable CORS
 app.use((req, res, next) => {
@@ -683,7 +683,7 @@ app.get('/api/health', (req, res) => {
 
 // Serve HTML
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    res.sendFile(path.join(__dirname, 'Public', 'index.html'));
 });
 
 // Start server
@@ -707,3 +707,4 @@ app.listen(PORT, () => {
         console.log('🧠 GPT-4o-mini with conversation memory\n');
     }
 });
+
