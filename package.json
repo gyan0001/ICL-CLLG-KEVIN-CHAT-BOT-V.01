@@ -1,0 +1,29 @@
+{
+  "name": "icl-bbis-ai-assistant",
+  "type": "module",
+  "version": "3.0.0",
+  "description": "ICL Bachelor of Business Information Systems AI Assistant with Kevin",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "axios": "^1.7.0",
+    "dotenv": "^16.0.0",
+    "body-parser": "^1.20.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "icl",
+    "business-information-systems",
+    "ai-chatbot",
+    "kevin-ai",
+    "education"
+  ],
+  "author": "ICL Education",
+  "license": "ISC"
+}

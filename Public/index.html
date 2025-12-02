@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bachelor of Business Information Systems | ICL New Zealand - Kevin AI</title>
+    <meta name="description" content="ICL's 24-month accelerated BBIS degree. 360 credits, Level 5-7 papers. Prepare for careers in IT, Business Analysis, Data Analytics, Project Management.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="/" class="logo">
+                <div class="logo-icon">🎓</div>
+                <div class="logo-text">
+                    <span class="logo-main">ICL New Zealand</span>
+                    <span class="logo-sub">Bachelor of Business Information Systems</span>
+                </div>
+            </a>
+            
+            <div class="nav-links">
+                <a href="#overview" class="nav-link">Overview</a>
+                <a href="#curriculum" class="nav-link">Curriculum</a>
+                <a href="#careers" class="nav-link">Careers</a>
+                <a href="#why-icl" class="nav-link">Why ICL</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+            
+            <button class="btn-chat" id="openChatBtn">
+                <i class="fas fa-robot"></i> Ask Kevin
+            </button>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-header">
+            <h3>BBIS Program Menu</h3>
+            <button class="close-menu" id="closeMenuBtn">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <a href="#overview" class="mobile-nav-link">📖 Overview</a>
+        <a href="#curriculum" class="mobile-nav-link">📚 Curriculum</a>
+        <a href="#careers" class="mobile-nav-link">💼 Careers</a>
+        <a href="#why-icl" class="mobile-nav-link">⭐ Why ICL</a>
+        <a href="#contact" class="mobile-nav-link">📞 Contact</a>
+        <button class="btn-chat mobile" id="openChatMobile">
+            <i class="fas fa-robot"></i> Chat with Kevin AI
+        </button>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-certificate"></i> NZQA Level 7 | Accredited
+                </div>
+                <h1 class="hero-title">Bachelor of Business Information Systems</h1>
+                <h2 class="hero-subtitle">24-Month Accelerated Degree | 360 Credits</h2>
+                <p class="hero-description">
+                    Transform into an IT professional with ICL's industry-focused BBIS program. Master business systems, 
+                    programming, data analytics, cybersecurity, and project management. Graduate career-ready in just 2 years!
+                </p>
+                
+                <div class="hero-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon">⏱️</div>
+                        <div class="stat-number">24</div>
+                        <div class="stat-label">Months</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📚</div>
+                        <div class="stat-number">23</div>
+                        <div class="stat-label">Papers</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🎯</div>
+                        <div class="stat-number">360</div>
+                        <div class="stat-label">Credits</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">💼</div>
+                        <div class="stat-number">10+</div>
+                        <div class="stat-label">Careers</div>
+                    </div>
+                </div>
+                
+                <div class="hero-buttons">
+                    <a href="#curriculum" class="btn-primary">
+                        <i class="fas fa-book-open"></i> Explore Papers
+                    </a>
+                    <button class="btn-secondary" id="heroChatBtn">
+                        <i class="fas fa-robot"></i> Ask Kevin AI
+                    </button>
+                </div>
+
+                <div class="hero-features">
+                    <div class="feature-item">
+                        <i class="fas fa-check-circle"></i> Industry-Focused
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-check-circle"></i> Practical Projects
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-check-circle"></i> Career Support
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hero-illustration">
+                <div class="ai-badge">
+                    <div class="ai-icon">
+                        <i class="fas fa-robot"></i>
+                        <span class="ai-name">KEVIN</span>
+                    </div>
+                    <span class="ai-subtitle">Your AI Course Assistant</span>
+                    <button class="ai-cta" onclick="kevin.openChat()">
+                        Ask Me Anything! 💬
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Info Bar -->
+    <section class="info-bar">
+        <div class="container">
+            <div class="info-items">
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span><strong>Location:</strong> Auckland CBD</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span><strong>Duration:</strong> 24 Months</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-language"></i>
+                    <span><strong>IELTS:</strong> 6.0 Overall</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-laptop"></i>
+                    <span><strong>BYOD:</strong> Required</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Program Overview -->
+    <section id="overview" class="section overview-section">
+        <div class="container">
+            <h2 class="section-title">Program Overview</h2>
+            <p class="section-subtitle">A comprehensive bachelor's degree blending business acumen with IT expertise</p>
+            
+            <div class="overview-grid">
+                <div class="overview-card">
+                    <div class="card-icon gradient-blue">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>NZQA Level 7</h3>
+                    <p>Recognized bachelor's degree with full 360 credits across three academic levels</p>
+                </div>
+                
+                <div class="overview-card">
+                    <div class="card-icon gradient-orange">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Accelerated Path</h3>
+                    <p>Complete in 24 months through six intensive 16-week trimesters</p>
+                </div>
+                
+                <div class="overview-card">
+                    <div class="card-icon gradient-purple">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Hands-On Learning</h3>
+                    <p>Build real projects: databases, websites, analytics dashboards, and more</p>
+                </div>
+                
+                <div class="overview-card">
+                    <div class="card-icon gradient-teal">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <h3>Career Ready</h3>
+                    <p>Industry capstone project and professional development throughout</p>
+                </div>
+            </div>
+
+            <div class="program-structure">
+                <h3><i class="fas fa-sitemap"></i> Program Structure</h3>
+                <div class="structure-grid">
+                    <div class="structure-item">
+                        <div class="structure-level">Level 5</div>
+                        <div class="structure-content">
+                            <div class="structure-papers">9 Papers</div>
+                            <p>Foundation in programming, business fundamentals, and information systems</p>
+                        </div>
+                    </div>
+                    <div class="structure-item">
+                        <div class="structure-level">Level 6</div>
+                        <div class="structure-content">
+                            <div class="structure-papers">9 Papers</div>
+                            <p>Intermediate skills in databases, web development, security, and project management</p>
+                        </div>
+                    </div>
+                    <div class="structure-item">
+                        <div class="structure-level">Level 7</div>
+                        <div class="structure-content">
+                            <div class="structure-papers">5 Papers</div>
+                            <p>Advanced analytics, data mining, digital strategy, and capstone project</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="credit-breakdown">
+                    <h4>Credit Distribution (360 total)</h4>
+                    <div class="credit-bars">
+                        <div class="credit-bar">
+                            <div class="credit-label">Information Systems</div>
+                            <div class="credit-progress" style="width: 29%;">
+                                <span>105 credits</span>
+                            </div>
+                        </div>
+                        <div class="credit-bar">
+                            <div class="credit-label">Business</div>
+                            <div class="credit-progress" style="width: 33%;">
+                                <span>120 credits</span>
+                            </div>
+                        </div>
+                        <div class="credit-bar">
+                            <div class="credit-label">ICT</div>
+                            <div class="credit-progress" style="width: 25%;">
+                                <span>90 credits</span>
+                            </div>
+                        </div>
+                        <div class="credit-bar">
+                            <div class="credit-label">Research & Application</div>
+                            <div class="credit-progress" style="width: 13%;">
+                                <span>45 credits</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Curriculum Section -->
+    <section id="curriculum" class="section curriculum-section">
+        <div class="container">
+            <h2 class="section-title">Complete Curriculum</h2>
+            <p class="section-subtitle">23 papers designed to build your IT and business expertise progressively</p>
+            
+            <div class="curriculum-tabs">
+                <button class="curriculum-tab active" data-year="1">
+                    <i class="fas fa-book"></i> Levels 5 & 6
+                </button>
+                <button class="curriculum-tab" data-year="2">
+                    <i class="fas fa-graduation-cap"></i> Level 7 & Completion
+                </button>
+            </div>
+            
+            <div class="curriculum-content">
+                <!-- Content loaded by JavaScript -->
+            </div>
+            
+            <div class="curriculum-cta">
+                <div class="cta-content">
+                    <h3><i class="fas fa-robot"></i> Want to Know More About Any Paper?</h3>
+                    <p>Kevin AI can explain any paper in detail - topics, skills, careers, and assessments!</p>
+                    <button class="btn-primary" onclick="kevin.openChat()">
+                        <i class="fas fa-comments"></i> Chat with Kevin
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Career Outcomes -->
+    <section id="careers" class="section careers-section">
+        <div class="container">
+            <h2 class="section-title">Career Outcomes</h2>
+            <p class="section-subtitle">Launch your career in high-demand IT roles with competitive NZ salaries</p>
+            
+            <div class="careers-grid">
+                <!-- Careers loaded by JavaScript -->
+            </div>
+
+            <div class="career-stats">
+                <div class="career-stat-card">
+                    <div class="stat-big">$60K-$140K</div>
+                    <p>Salary Range NZD</p>
+                </div>
+                <div class="career-stat-card">
+                    <div class="stat-big">10+</div>
+                    <p>Career Paths</p>
+                </div>
+                <div class="career-stat-card">
+                    <div class="stat-big">High</div>
+                    <p>Job Demand</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why ICL -->
+    <section id="why-icl" class="section why-icl-section">
+        <div class="container">
+            <h2 class="section-title">Why Choose ICL?</h2>
+            <p class="section-subtitle">Quality education from New Zealand's trusted private provider</p>
+            
+            <div class="advantages-grid">
+                <div class="advantage-card">
+                    <div class="advantage-icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <h3>NZQA Category 1</h3>
+                    <p>Highest quality rating from New Zealand Qualifications Authority. Established since 1990.</p>
+                </div>
+                
+                <div class="advantage-card">
+                    <div class="advantage-icon">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <h3>Industry Experts</h3>
+                    <p>Learn from lecturers with real-world IT and business experience in leading NZ companies.</p>
+                </div>
+                
+                <div class="advantage-card">
+                    <div class="advantage-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3>Modern Facilities</h3>
+                    <p>State-of-the-art computer labs with latest software and development tools.</p>
+                </div>
+                
+                <div class="advantage-card">
+                    <div class="advantage-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Small Classes</h3>
+                    <p>Maximum 25 students per class ensures personalized attention and support.</p>
+                </div>
+
+                <div class="advantage-card">
+                    <div class="advantage-icon">
+                        <i class="fas fa-city"></i>
+                    </div>
+                    <h3>Central Location</h3>
+                    <p>Auckland CBD campus with easy access to public transport and industry connections.</p>
+                </div>
+                
+                <div class="advantage-card">
+                    <div class="advantage-icon">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                    <h3>Student Support</h3>
+                    <p>Dedicated academic and career support services throughout your study journey.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Kevin AI Chat Assistant -->
+    <div class="chat-container">
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+                <div class="chat-title">
+                    <div class="kevin-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="chat-info">
+                        <h3>Kevin AI Assistant</h3>
+                        <p class="chat-subtitle">BBIS Course Expert</p>
+                        <div class="chat-status">
+                            <span class="status-dot online"></span>
+                            <span class="status-text">Online & Ready</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="chat-close" id="closeChatBtn" title="Close chat">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="chat-messages" id="chatMessages">
+                <!-- Messages appear here -->
+            </div>
+            
+            <div class="chat-quick-actions">
+                <p class="quick-title">💡 Quick Questions:</p>
+                <div class="quick-buttons">
+                    <button class="quick-btn" data-question="Tell me about paper 7101">
+                        <i class="fas fa-chart-bar"></i> Business Intelligence
+                    </button>
+                    <button class="quick-btn" data-question="What careers can I pursue?">
+                        <i class="fas fa-briefcase"></i> Careers
+                    </button>
+                    <button class="quick-btn" data-question="What are the entry requirements?">
+                        <i class="fas fa-clipboard-check"></i> Requirements
+                    </button>
+                </div>
+            </div>
+            
+            <div class="chat-input-area">
+                <div class="typing-indicator" id="typingIndicator">
+                    <div class="typing-dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <span>Kevin is thinking...</span>
+                </div>
+                
+                <div class="input-wrapper">
+                    <input 
+                        type="text" 
+                        id="chatInput" 
+                        placeholder="Ask about papers, careers, requirements..." 
+                        autocomplete="off"
+                        aria-label="Chat message input"
+                    >
+                    <button id="sendBtn" class="send-btn" title="Send message" aria-label="Send message">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+                
+                <div class="chat-footer">
+                    <small>
+                        <i class="fas fa-info-circle"></i> 
+                        Kevin provides info from ICL's official BBIS program
+                    </small>
+                </div>
+            </div>
+        </div>
+        
+        <button class="chat-toggle" id="chatToggle" title="Chat with Kevin AI">
+            <div class="toggle-icon">
+                <div class="pulse-ring"></div>
+                <div class="kevin-mini">
+                    <i class="fas fa-robot"></i>
+                </div>
+            </div>
+            <span class="toggle-text">Ask Kevin</span>
+        </button>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3><i class="fas fa-graduation-cap"></i> International College of Linguistics</h3>
+                    <p class="footer-description">
+                        Providing quality tertiary education in New Zealand since 1990. 
+                        NZQA Category 1 Provider - our highest quality rating.
+                    </p>
+                    <div class="contact-info">
+                        <p><i class="fas fa-map-marker-alt"></i> Level 5, 220 Queen Street<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Auckland CBD, New Zealand</p>
+                        <p><i class="fas fa-phone"></i> +64 9 379 7010</p>
+                        <p><i class="fas fa-envelope"></i> admissions@icl.ac.nz</p>
+                        <p><i class="fas fa-globe"></i> <a href="https://icl.ac.nz" target="_blank">icl.ac.nz</a></p>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>BBIS Program</h3>
+                    <a href="#overview">Program Overview</a>
+                    <a href="#curriculum">Curriculum & Papers</a>
+                    <a href="#careers">Career Outcomes</a>
+                    <a href="#why-icl">Why Choose ICL</a>
+                    <a href="https://icl.ac.nz/courses/bachelor-business-information-systems/" target="_blank">Official Course Page</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <a href="https://icl.ac.nz/enrol" target="_blank">Enrol Now</a>
+                    <a href="https://icl.ac.nz" target="_blank">Download Prospectus</a>
+                    <a href="#" id="footerChatBtn">Chat with Kevin AI</a>
+                    <a href="https://icl.ac.nz/international-students/" target="_blank">International Students</a>
+                    <a href="https://icl.ac.nz/scholarships/" target="_blank">Scholarships</a>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link" title="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-link" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-link" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link" title="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                    <div class="ai-assistant-promo">
+                        <button class="btn-chat" onclick="kevin.openChat()">
+                            <i class="fas fa-robot"></i> Ask Kevin AI
+                        </button>
+                        <p>Get instant answers about the BBIS program!</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024-2025 International College of Linguistics (ICL) New Zealand. All rights reserved.</p>
+                <p class="maori-whakatauki">
+                    <em>Whāia te iti kahurangi ki te tūohu koe me he maunga teitei</em><br>
+                    Seek the treasure you value most dearly: if you bow your head, let it be to a lofty mountain
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
