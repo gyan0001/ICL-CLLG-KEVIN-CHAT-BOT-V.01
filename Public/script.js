@@ -405,6 +405,34 @@ class KevinAssistant {
         // Store in history
         this.messageHistory.push({ sender, text, timestamp: Date.now() });
     }
+    openChat() {
+    console.log('💬 Opening chat window');
+    const chatWindow = document.getElementById('chatWindow');
+    const chatToggle = document.getElementById('chatToggle');
+    const quickActions = document.querySelector('.chat-quick-actions');
+    
+    if (chatWindow) {
+        chatWindow.classList.add('active');
+        
+        // SHOW QUICK ACTIONS WHEN OPENING CHAT
+        if (quickActions && this.messageHistory.length <= 1) {
+            quickActions.style.display = 'block';
+        }
+        
+        // Focus input after animation
+        setTimeout(() => {
+            const input = document.getElementById('chatInput');
+            if (input) {
+                input.focus();
+            }
+            this.scrollToBottom();
+        }, 300);
+    }
+    
+    if (chatToggle) {
+        chatToggle.style.display = 'none';
+    }
+}
 
     showTyping(show) {
         this.isTyping = show;
@@ -427,28 +455,6 @@ class KevinAssistant {
         }
     }
 
-    openChat() {
-        console.log('💬 Opening chat window');
-        const chatWindow = document.getElementById('chatWindow');
-        const chatToggle = document.getElementById('chatToggle');
-        
-        if (chatWindow) {
-            chatWindow.classList.add('active');
-            
-            // Focus input after animation
-            setTimeout(() => {
-                const input = document.getElementById('chatInput');
-                if (input) {
-                    input.focus();
-                }
-                this.scrollToBottom();
-            }, 300);
-        }
-        
-        if (chatToggle) {
-            chatToggle.style.display = 'none';
-        }
-    }
 
     closeChat() {
         console.log('❌ Closing chat window');
